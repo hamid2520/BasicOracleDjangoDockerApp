@@ -1,0 +1,15 @@
+services:
+  oracle_server:
+    image: oracle/database:19.3.0-se2
+    ports:
+      - 3333:1521
+      - 3334:5500
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8989
+    volumes:
+      - .:/code
+    ports:
+      - 8989:8989
+    links:
+      - oracle_server
